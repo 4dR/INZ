@@ -31,48 +31,56 @@
 </head>
 <body>
     
-<header>
+<header class="profile-header">
 
     <?php include('./components/navbar.php'); ?>
 
-    <div class="slider">
-        <div class="overslide">
-            <h2>Match me</h2>
-            <p>Find your best teammate</p>
-        </div>
-
-        <div class="slider-arrow">
-            <a href="#about-us"><i class="fas fa-chevron-down"></i></a>
-        </div>
-    </div>
-
 </header>
-
-<div class="about-us container" id="about-us">
-    <h3>About us</h3>
-    <p>
-    Our website is for gamers,
-    who's looking game partner on the Steam platform.<br>
-    Surely here you find your best game partner to playing together.<br><br>
-    The gamers are find by algorithm which checking their statistics. 
-    </p>
-</div>
-
-<div class="registred-counter container">
-    <?php 
-        $sql = "SELECT * FROM user";
-        $result = $conn->query($sql);
-    ?>
-
-
-    <div class="registered-left">
-        <i class="fas fa-users"></i>
-        <p><?php echo $result->num_rows; ?></p>
+    <div class="under-header container">
+        <h1>Mailbox</h1>
     </div>
-    <div class="registered-right">
-        <p>Registered users</p>
-    </div>
-</div>
+    
+     <div class="mailbox container">
+        <div class="mailbox-main">
+            <div class="mailbox-left">
+                <div class="mailbox-menu-item mailbox-left-selected">
+                    <i class="fal fa-plus"></i>
+                    <p>New message</p>
+                </div>
+
+                <div class="mailbox-menu-item">
+                    <i class="fal fa-inbox-in"></i>
+                    Received
+                </div>
+
+                <div class="mailbox-menu-item">
+                    <i class="fal fa-paper-plane"></i>
+                    Sent
+                </div>
+
+            </div>
+            <div class="mailbox-right">
+                <div class="mailbox-right-bottom mailbox-right-new">
+                    <form action="">
+                        <input type="text" name="send-to" class="send-to" placeholder="send to:">
+                        <textarea name="mailbox-message" id="mailbox-message" placeholder="Message"></textarea>
+                        <input class="priv-message-send" type="submit" value="Send message">
+                    </form>
+                </div>
+            
+                <div class="mailbox-right mailbox-right-received">
+                    
+                </div>
+
+                <div class="mailbox-right mailbox-right-sent">
+                    
+                </div>
+
+            </div>
+
+        </div>
+     </div>
+    
 
     <?php include('./components/footer.php'); ?>
 

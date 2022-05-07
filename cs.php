@@ -63,7 +63,7 @@
 
             <div class="single-gamer-info">
                 <div class="single-info single-gamer-kda" id="kda-<?php echo $counter; ?>">3.0 KDR</div>
-                <div onClick="dupa();" class="single-info single-gamer-kills" id="kills-<?php echo $counter; ?>">1400 Kills</div>
+                <div onClick="" class="single-info single-gamer-kills" id="kills-<?php echo $counter; ?>">1400 Kills</div>
             </div>
 
         </div>

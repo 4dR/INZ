@@ -10,6 +10,7 @@
     --whiteDarker: rgb(228, 228, 228);
     --grayBoxHover: rgb(58, 58, 58);
     --grayBox: rgb(44, 44, 44);
+    --yellow: rgb(231, 231, 71);
 }
 
 
@@ -31,6 +32,11 @@ header {
     height: auto;
 }
 
+.transparent {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
 nav {
     height: 110px;
     background-color: var(--black);
@@ -43,6 +49,7 @@ nav {
     width: 100%;
     padding: 0px 50px;
     z-index: 10;
+    border-bottom: 1px solid rgb(110, 110, 110);
 }
 
 nav .container {
@@ -311,7 +318,7 @@ footer p {
 }
 
 .partner-list {
-    height: calc(100vh - 110px - 100px - 300px);
+    min-height: calc(100vh - 110px - 100px - 300px);
     padding: 50px 0px;
 }
 
@@ -382,12 +389,30 @@ footer p {
     align-items: center;
     transition: .2s all linear;
     padding: 15px;
-    cursor: pointer;
     border-radius: 5px;
     position: relative;
     margin-top: 30px;
     flex-direction: column;
     color: white;
+    transition: .2s all linear;
+    border: 1px solid var(--grayBox);
+}
+
+.user-info-square p {
+    font-size: 30px;
+}
+
+.bordered:hover {
+    border: 1px solid var(--red);
+    cursor: pointer;
+}
+
+.user-info-square .icon-light {
+    color: rgb(230, 59, 59);
+}
+
+.user-info-square h3 {
+    margin-top: 15px;
 }
 
 .profile-header {
@@ -400,21 +425,306 @@ footer p {
 }
 
 .comment-zone {
-    height: 300px;
     display: flex;
     justify-content: left;
     align-items: center;
+    margin-top: 50px;
+    flex-direction: column;
 }
 
 .under-header {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     color: white;
     padding-top: 50px;
+    position: relative;
 }
 
+.hr-60 {
+    width: 60%; 
+    height: 0px;
+    border-bottom: 1px solid rgb(110, 110, 110);
+    margin: 0 auto;
+}
 
+.icons {
+    font-size: 60px;
+}
+
+.fa-discord {
+    color: #5865F2;
+}
+
+.dc-code {
+    font-size: 30px;
+}
+
+.profile-person-name {
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.under-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rating i {
+    margin: 0px 5px;
+    color: rgb(110, 110, 110);
+}
+
+.profile-lang {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profile-lang p {
+    font-size: 24px;
+    margin-bottom: 0px;
+}
+
+.fa-volume-up {
+    color: rgb(196, 76, 226);
+}
+
+.comment-form {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.add-comment-area {
+    resize: none;
+    width: 100%;
+    height: 300px;
+    background-color: rgb(32, 32, 32);
+    border: 1px solid rgb(71, 71, 71);
+    color: white;
+    font-size: 18px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.comment-zone {
+    margin-bottom: 50px;
+}
+
+.add-comment-area:focus {
+    outline: none;
+}
+
+.comment-form input {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    transition: .2s all linear;
+    color: white;
+    background-color: rgb(111, 111, 111);
+    font-size: 24px;
+}
+
+.comment-form input:hover {
+    background-color: rgb(49, 155, 49);
+}
+
+.rating-bottom {
+    margin: 15px 0px 20px 0px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.rating-bottom i {
+    font-size: 30px;
+    color: rgb(175, 175, 175);
+    cursor: pointer;
+}
+
+.rating-bottom p {
+    margin-bottom: 0px;
+    margin-left: 20px;
+    font-size: 20px;
+    color: rgb(175, 175, 175);
+}
+
+.private-message-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .2s all linear;
+    color: rgb(175, 175, 175);
+}
+
+.private-message-icon:hover {
+    color: var(--red);
+}
+
+.private-message-icon p { 
+    margin-bottom: 0px;
+    margin-left: 7px;
+}
+
+.single-comment {
+    background-color: rgb(49, 49, 49);
+    border: 1px solid rgb(71, 71, 71);
+    width: 100%;
+    height: 100px;
+    border-radius: 5px;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+
+.single-comment-left {
+    font-size: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 30px;
+    border-right: 1px solid rgb(175, 175, 175);
+}
+
+.single-comment-right {
+    margin-left: 50px;
+}
+
+.single-comment-date {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: rgb(175, 175, 175);
+}
+
+.logowanie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-pm {
+    margin-right: 50px;
+}
+
+.nav-pm i {
+    font-size: 30px;
+    transition: .2s all linear;
+    color: white;
+    cursor: pointer;
+}
+
+.nav-pm i:hover {
+    color: var(--red);
+}
+
+.mailbox {
+    min-height: calc(100vh - 110px - 200px);
+    margin-top: 20px;
+}
+
+.mailbox-main {
+  padding: 20px;
+  background-color: rgb(32, 32, 32); 
+  border-radius: 5px; 
+  display: flex;
+  justify-content: space-between;
+}
+
+.mailbox-left {
+    width: 250px;
+    border-right: 1px solid rgb(49, 49, 49);
+}
+
+.mailbox-menu-item {
+    color: white;
+    background-color: rgb(49, 49, 49);
+    font-size: 18px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    width: 90%;
+    padding: 15px;
+    cursor: pointer;
+    transition: .2s all linear;
+    display: flex;
+    align-items: center;
+}
+
+.mailbox-menu-item p {
+    margin-bottom: 0px;
+}
+
+.mailbox-menu-item i {
+    margin-right: 12px;
+}
+
+.mailbox-menu-item:hover {
+    background-color: rgb(68, 68, 68);
+}
+
+.mailbox-left-selected {
+    background-color: rgb(68, 68, 68) !important;
+}
+
+.mailbox-right {
+    width: 100%;
+    padding-left: 20px;
+}
+
+.mailbox-right-bottom form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mailbox-right-bottom form input,
+.mailbox-right-bottom form textarea
+{
+    width: 100%;
+    margin: 10px 0px;
+    border-radius: 5px;
+    background-color: rgb(49, 49, 49);
+    border: none;
+    padding: 10px;
+    color: white;
+}
+
+.mailbox-right-bottom form textarea {
+    height: 300px;
+    resize: none;
+}
+
+.mailbox-right-bottom form input:focus,
+.mailbox-right-bottom form textarea:focus
+{
+    outline: none;
+}
+
+.priv-message-send {
+    transition: .2s all linear;
+}
+
+.priv-message-send:hover {
+    background-color: rgb(49, 155, 49);
+}
 
 @keyframes slider-image {
     0% {
@@ -432,4 +742,16 @@ footer p {
     100% {
         background-image: url('../img/bg3.jpg');
     }
-  }
+}
+
+.mailbox-right-new {
+
+}
+
+.mailbox-right-received {
+    display: none;
+}
+
+.mailbox-right-sent {
+    display: none;
+}

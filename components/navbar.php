@@ -25,6 +25,11 @@
     </div>
 
     <div class="logowanie">
+        <div class="nav-pm">
+            <a href="./mailbox.php">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
         <?php
             if(isset($_SESSION['steamid'])) { ?>
                 <div class="log">

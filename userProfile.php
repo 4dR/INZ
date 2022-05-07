@@ -19,6 +19,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/all.min.css">
+    <link rel="stylesheet" href="CSS/light.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Square+Peg&display=swap" rel="stylesheet">
@@ -34,71 +36,123 @@
     <?php include('./components/navbar.php'); ?>
 
 </header>
-    <div class="under-header">
+    <div class="under-header container">
         <h1>My profile</h1>
+        <div class="private-message-icon">
+            <i class="fas fa-envelope"></i>
+            <p class="send-pm">Send PM</p>
+        </div>
     </div>
     
     <div class="user-info container">
-        <div class="user-info-square">
-            <h3>Languages</h3>
-            <div class="languages">
-                <form action="" method="GET">
-                    <select name="languages">
 
-                    </select>
-                    <input type="submit" value="Add">
-                </form>
+        <div class="user-info-square">
+            <i class="fas fa-volume-up icons"></i>
+            <h3>Languages</h3>
+            <div class="profile-lang">
+                <p>Polish</p>
+                <p>English</p>
+                <p>German</p>
             </div>
         </div>
-        <div class="user-info-square">
-            avatar
+
+        <div class="user-info-square transparent" >
+
+        
+
+            <?php 
+                $steamid = $steamprofile['steamid'];
+                $query = "SELECT `avatar` FROM `user` WHERE `steamid` = '$steamid'";
+                $response = $conn->query($query);
+                        
+                $num_rows = $response->num_rows;
+
+                if ($num_rows > 0) {
+                    $avatar = $row = $response->fetch_assoc();
+                }
+            ?>
+
+            <img src="<?php if($avatar['avatar']) { echo $avatar['avatar']; } else { echo 'Avatar'; }?>" alt="">
+            <div class="under-avatar">
+                <p class="profile-person-name"><?php if($steamprofile['personaname']) { echo $steamprofile['personaname']; } else { echo 'Nickname'; } ?></p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
         </div>
-        <div class="user-info-square">
-            <!-- <i class="fa-brands fa-discord"></i> -->
+
+        <div class="user-info-square bordered">
+            <i class="fab fa-discord icons"></i>
             <h3>Discord</h3>
-            <form action="" class="discord-form">
-                <input type="text">
-                <input type="submit" value="Add">
-            </form>
+            <p class="dc-code">Raxi#1234</p>
         </div>
+
     </div>
 
-    <hr style="width: 60%; background: gray;">
-
-   
+    <div class="hr-60"></div>
 
     <div class="user-info container">
         
         <div class="user-info-square">
+            <i class="fal fa-bow-arrow icons icon-light"></i>
             <h3>Bow accuracy</h3>
-            
+            <p>1</p>
         </div>
         <div class="user-info-square">
+            <i class="fal fa-skull icons icon-light"></i>
             <h3>Headshots</h3>
+            <p>1</p>
         </div>
         <div class="user-info-square">
+            <i class="fal fa-crosshairs icons icon-light"></i>
             <h3>Rifle Accuracy</h3>
+            <p>1</p>
         </div>
         <div class="user-info-square">
+            <i class="fal fa-axe icons icon-light"></i>
             <h3>Total Kills</h3>
-
+            <p>1</p>
         </div>
         <div class="user-info-square">
+            <i class="fal fa-skull-crossbones icons icon-light"></i>
             <h3>Deaths</h3>
+            <p>1</p>
         </div>
         <div class="user-info-square">
+            <i class="fal fa-swords icons icon-light"></i>
             <h3>KDR</h3>
+            <p>1</p>
         </div>
     </div>
 
-    
-    
+    <div class="hr-60"></div>  
 
+    <div class="comment-zone container">
 
-    <div class="comment-zone">
+        <div class="single-comment">
+                <div class="single-comment-left">Raxi</div>
+                <div class="single-comment-right">Najlepszy gracz na świecie</div>
+                <div class="single-comment-date">16:23 12.06.2022</div>
+        </div>
+
         <form action="" class="comment-form">
-            <input type="text-area" class="add-comment-area">
-            <input type="submit" value="Add">
+            <textarea name="comment-textarea" class="add-comment-area" placeholder="Comment gamers profile"></textarea>
+            <input type="hidden" name='stars' value="0">
+            <div class="rating-bottom">
+                <div class="bottom-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Rate player</p>
+            </div>
+            <input type="submit" value="Comment">
         </form>
     </div>    
     
