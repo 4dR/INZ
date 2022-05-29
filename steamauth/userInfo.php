@@ -14,20 +14,21 @@ if (empty($_SESSION['steam_uptodate']) or empty($_SESSION['steam_personaname']))
 	$steamid= $content['response']['players'][0]['steamid'];
 
 	
-	$sql = "SELECT * FROM user";
+	$sql = "SELECT `id`,`steamid` FROM user WHERE `steamid` = '$steamid'";
 	$response = $conn->query($sql);
 	$num_rows = $response->num_rows;
-	$duplicate = false;
-	
-	if ($num_rows >= 0) {
-		while($row = $response->fetch_assoc()) {
-			$duplicate = ($row['steamid'] === $steamid);
-		}
-		if (!$duplicate) {
-			$sql = "INSERT INTO `user` (`id`, `name`, `avatar`, `steamid`) VALUES (NULL, '$nickname', '$avatar', '$steamid')";
+	$fetch = $response->fetch_assoc();
+
+	if ($fetch !== null) {
+		$_SESSION['client_id'] = $fetch['id'];
+	} else {
+		$sql = "INSERT INTO `user` (`id`, `name`, `avatar`, `steamid`) VALUES (NULL, '$nickname', '$avatar', '$steamid')";
+		try {
 			$conn->query($sql);
+		} catch(Exception $e) {
+			echo "nie dodalo usera" . $e;
 		}
-	  }
+	}
 	
 
 	$_SESSION['steam_steamid'] = $content['response']['players'][0]['steamid'];

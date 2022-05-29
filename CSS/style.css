@@ -11,6 +11,7 @@
     --grayBoxHover: rgb(58, 58, 58);
     --grayBox: rgb(44, 44, 44);
     --yellow: rgb(231, 231, 71);
+    --dcColor: #5865F2;
 }
 
 
@@ -336,6 +337,7 @@ footer p {
     align-items: center;
     transition: .2s all linear;
     cursor: pointer;
+    position: relative;
 }
 
 .single-gamer:hover {
@@ -372,12 +374,12 @@ footer p {
 }
 
 .user-info {
-    padding: 100px 0px;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
     flex-wrap: wrap;
     padding: 50px 0px;
+    padding-top: 20px;
 }
 
 .user-info-square {
@@ -458,8 +460,77 @@ footer p {
 }
 
 .dc-code {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+}
+
+.dc-code .dc-name, .dc-code .dc-remove {
     font-size: 30px;
 }
+
+.dc-remove {
+    margin-left: 20px;
+}
+
+.dc-remove i {
+    transition: .2s all linear;
+}
+
+.dc-remove i:hover {
+    color: red;
+
+}
+
+#discordname {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.dc-name-input {
+    background-color: transparent;
+    border: 0px;
+    border-bottom: 3px solid var(--red);
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    max-width: 100%;
+    transition: .2s all linear;
+}
+
+.dc-name-input:focus {
+    outline: none;
+    border-color: var(--dcColor);
+}
+
+.dc-name-submit {
+    background-color: rgb(57, 168, 57);
+    margin-top: 15px;
+    border: 0px;
+    color: white;
+    padding: 5px 25px;
+    transition: .2s all linear;
+}
+
+.dc-name-submit:hover {
+    filter: brightness(0.8);
+}
+
+.dc-remove button {
+    background-color: transparent;
+    border: 0px;
+    color: white;
+}
+
+.dc-remove button:focus {
+    outline: none;
+}
+
+
 
 .profile-person-name {
     font-size: 30px;
@@ -477,6 +548,7 @@ footer p {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
 }
 
 .rating i {
@@ -591,6 +663,7 @@ footer p {
     justify-content: flex-start;
     align-items: center;
     position: relative;
+    margin-top: 10px;
 }
 
 .single-comment-left {
@@ -612,6 +685,17 @@ footer p {
     top: 10px;
     right: 10px;
     color: rgb(175, 175, 175);
+}
+
+.single-comment-rate {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    color: rgb(175, 175, 175);
+}
+
+.single-comment-rate i {
+    margin-right: 7px;
 }
 
 .logowanie {
@@ -754,4 +838,56 @@ footer p {
 
 .mailbox-right-sent {
     display: none;
+}
+
+.bottom-stars .golden-star,
+.single-comment-rate .golden-star,
+.rating .golden-star {
+    color: 	#FFD700;
+}
+
+.single-star {
+    transition: .1s all linear;
+}
+
+.single-gamer-link {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.game-choice-profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.single-game-choice {
+    padding: 10px 30px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: var(--grayBox);
+    border: 2px solid var(--grayBoxHover);
+    border-bottom: 2px solid var(--dcColor);
+}
+
+.game-choice-profile {
+    margin-top: 30px;
+}
+
+.single-game-choice.active {
+    background-color: var(--grayBoxHover);
+    border: 2px solid var(--dcColor);
+    border-bottom: 0px;
+}
+
+.game-choice-profile a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.single-game-choice:hover {
+    background-color: var(--grayBoxHover);
 }
