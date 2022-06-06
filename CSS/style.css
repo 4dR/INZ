@@ -561,13 +561,28 @@ footer p {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    justify-content: space-between;
 }
 
 .profile-lang p {
     font-size: 24px;
     margin-bottom: 0px;
 }
+
+.lang-submit {
+    background-color: rgb(57, 168, 57);
+    margin-top: 15px;
+    border: 0px;
+    color: white;
+    padding: 5px 25px;
+    transition: .2s all linear;
+}
+
+.lang-submit:hover {
+    filter: brightness(0.8);
+}
+
+
 
 .fa-volume-up {
     color: rgb(196, 76, 226);
@@ -828,18 +843,6 @@ footer p {
     }
 }
 
-.mailbox-right-new {
-
-}
-
-.mailbox-right-received {
-    display: none;
-}
-
-.mailbox-right-sent {
-    display: none;
-}
-
 .bottom-stars .golden-star,
 .single-comment-rate .golden-star,
 .rating .golden-star {
@@ -891,3 +894,67 @@ footer p {
 .single-game-choice:hover {
     background-color: var(--grayBoxHover);
 }
+
+.profile-lang select {
+    background-color: var(--grayBox);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.added-lang {
+    display: flex;
+    flex-direction: column;
+}
+
+.select-list {
+    margin-right: 15px;
+}
+
+.single-message-block {
+    padding: 15px;
+    background-color: rgb(49, 49, 49);
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    transition: .2s all linear;
+    cursor: pointer;
+}
+
+.single-message-block-left {
+    margin-right: 30px;
+}
+
+.single-message-block:hover {
+    background-color: rgb(92, 92, 92);
+}
+
+
+.mailbox-right-single {
+    margin-top: 10px;
+    background-color: rgb(49, 49, 49);
+    border-radius: 5px;
+    color: white;
+    padding: 15px;
+    height: 100%;
+}
+
+.gamersbtn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-gamers-button {
+    transition: .2s all linear;
+}
+
+.submit-gamers-button:hover {
+    background-color: rgb(49, 155, 49);
+}
+
+

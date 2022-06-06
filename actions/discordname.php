@@ -12,7 +12,16 @@ if(isset($_POST['dcname']) && $_POST['dcname'] != ''
     $client_id = mysqli_real_escape_string($conn, $_SESSION['client_id']);
     $dc_tag = mysqli_real_escape_string($conn, $_POST['dcname']);
 
-    $sql = "UPDATE `user_info` SET `discord_tag` = '$dc_tag' WHERE `client_id` = '$client_id'";
+    $sql = "SELECT * FROM `user_info` WHERE `client_id` = '$client_id'";
+
+    $result = $conn->query($sql);
+    
+    if($result->num_rows > 0) {
+        $sql = "UPDATE `user_info` SET `discord_tag` = '$dc_tag' WHERE `client_id` = '$client_id'";
+    } else {
+        $sql = "INSERT INTO `user_info` (`id`, `client_id`, `discord_tag`, `languages`)
+         VALUES (NULL, '$client_id', '$dc_tag', '')";
+    }
     
     try {
         $result = $conn->query($sql);

@@ -64,15 +64,47 @@
 
     
     <div class="user-info container">
-
-
         <div class="user-info-square">
             <i class="fas fa-volume-up icons"></i>
             <h3>Languages</h3>
+            <?php
+                $client_id = $_SESSION['client_id'];
+                $sql = "SELECT `lang_id` FROM `languages` WHERE `user_id` = '$client_id)'";
+                
+                $response = $conn->query($sql);
+            ?>
+                
             <div class="profile-lang">
-                <p>Polish</p>
-                <p>English</p>
-                <p>German</p>
+                <?php if($profileres['steamid'] === $_SESSION['steamid']) { ?>
+                    <form class="select-list" action="actions/add_lang.php" method="POST">
+                        <?php
+                        if($response->num_rows != 3) {
+                        ?>
+                        <select name="lang-list" id="">
+                            <option value="1">Polish</option>
+                            <option value="2">German</option>
+                            <option value="3">English</option>
+                        </select>
+                        <input type="submit" value="Add" class="lang-submit">
+                        <?php
+                        }
+                        ?>
+                    </form>
+                    <?php } ?>
+                <div class="added-lang">
+                    <?php 
+                        if ($response->num_rows > 0) {
+                            while($row = $response->fetch_assoc()) {
+                                if($row['lang_id'] == 1) {
+                                    echo "<p>Polish</p>";
+                                } else if($row['lang_id'] == 2) {
+                                    echo "<p>German</p>";
+                                } else 
+                                    echo "<p>English</p>";
+                            }
+                        }
+                    ?>
+                </div>   
             </div>
         </div>
 
@@ -156,66 +188,73 @@
         <div class="user-info-square">
             <i class="fal fa-bow-arrow icons icon-light"></i>
             <h3>Bow accuracy</h3>
-            <p>1</p>
+            <p class="bow-acc">1</p>
         </div>
         <div class="user-info-square">
             <i class="fal fa-skull icons icon-light"></i>
             <h3>Headshots</h3>
-            <p class="hs-count">1</p>
+            <p class="hs-count-rust">1</p>
         </div>
         <div class="user-info-square">
             <i class="fal fa-crosshairs icons icon-light"></i>
             <h3>Rifle Accuracy</h3>
-            <p>1</p>
+            <p class="rifle-acc">1</p>
         </div>
         <div class="user-info-square">
             <i class="fal fa-axe icons icon-light"></i>
             <h3>Total Kills</h3>
-            <p>1</p>
+            <p class="total-kills-rust">1</p>
         </div>
         <div class="user-info-square">
             <i class="fal fa-skull-crossbones icons icon-light"></i>
             <h3>Deaths</h3>
-            <p class="deaths-count">1</p>
+            <p class="deaths-count-rust">1</p>
         </div>
         <div class="user-info-square">
             <i class="fal fa-swords icons icon-light"></i>
             <h3>KDR</h3>
-            <p>1</p>
+            <p class="kdr-rust">1</p>
         </div>
 
     <?php } elseif(isset($_GET['game']) && $_GET['game'] === 'cs' || !isset($_GET['game'])) { ?>
-
-        <div class="user-info-square">
-            <i class="fal fa-bow-arrow icons icon-light"></i>
-            <h3>do csa</h3>
-            <p>1</p>
-        </div>
-        <div class="user-info-square">
-            <i class="fal fa-skull icons icon-light"></i>
-            <h3>Headshots</h3>
-            <p class="hs-count">1</p>
-        </div>
-        <div class="user-info-square">
-            <i class="fal fa-crosshairs icons icon-light"></i>
-            <h3>Rifle Accuracy</h3>
-            <p>1</p>
-        </div>
+        
         <div class="user-info-square">
             <i class="fal fa-axe icons icon-light"></i>
-            <h3>Total Kills</h3>
-            <p>1</p>
+            <h3>Total kills</h3>
+            <p class="total-kills-cs">1</p>
         </div>
-        <div class="user-info-square">
-            <i class="fal fa-skull-crossbones icons icon-light"></i>
-            <h3>Deaths</h3>
-            <p class="deaths-count">1</p>
-        </div>
+       
+        
         <div class="user-info-square">
             <i class="fal fa-swords icons icon-light"></i>
             <h3>KDR</h3>
-            <p>1</p>
+            <p class="kdr-cs">1</p>
         </div>
+        
+        <div class="user-info-square">
+            <i class="fal fa-skull icons icon-light"></i>
+            <h3>Headshots</h3>
+            <p class="hs-count-cs">1</p>
+        </div>
+        
+        
+        <!--  -->
+        <div class="user-info-square">
+            <i class="fal fa-crosshairs icons icon-light"></i>
+            <h3>AK-47 Kills</h3>
+            <p class="ak47-kills">1</p>
+        </div>
+        <div class="user-info-square">
+            <i class="fal fa-crosshairs icons icon-light"></i>
+            <h3>M4A4 Kills</h3>
+            <p class="m4a4-kills">1</p>
+        </div>
+        <div class="user-info-square">
+            <i class="fal fa-crosshairs icons icon-light"></i>
+            <h3>AWP Kills</h3>
+            <p class="awp-kills">1</p>
+        </div>
+        <!--  -->
 
     <?php } ?>
 
@@ -268,10 +307,11 @@
         </form>
     </div>    
 
-    <input type="text" name="" id="">
+    <!-- <input type="text" name="" id=""> -->
 
     <script>
-        getPersonalStats(<?php echo '"' . $profileres['steamid'] . '"'; ?>, [252490, 730]);
+        getPersonalStats(<?php echo '"' . $profileres['steamid'] . '"'; ?>, [252490]);
+        getPersonalStats(<?php echo '"' . $profileres['steamid'] . '"'; ?>, [730]);
     </script>
     
 

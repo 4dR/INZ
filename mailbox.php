@@ -1,34 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<?php 
-    include "dbconnect.php";
-
-    $conn = OpenCon();
-
-    require './steamauth/steamauth.php'; 
-
-    if(isset($_SESSION['steamid'])) {
-        include('steamauth/userInfo.php');
-    }   
-?>
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="CSS/style.css">
-    <link rel="stylesheet" href="CSS/all.min.css">
-    <link rel="stylesheet" href="CSS/light.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Square+Peg&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/bcbbe0b4e9.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Match Us</title>
-</head>
 <body>
     
 <header class="profile-header">
@@ -43,39 +12,155 @@
      <div class="mailbox container">
         <div class="mailbox-main">
             <div class="mailbox-left">
-                <div class="mailbox-menu-item mailbox-left-selected">
-                    <i class="fal fa-plus"></i>
-                    <p>New message</p>
-                </div>
+                <a href="/mailbox.php?type=new">
+                    <div class="mailbox-menu-item <?php if((isset($_GET['type']) && $_GET['type'] == 'new') || !isset($_GET['type'])) { echo 'mailbox-left-selected'; } else { echo ''; } ?>">
+                        <i class="fal fa-plus"></i>
+                        <p>New message</p>
+                    </div>
+                </a>
 
-                <div class="mailbox-menu-item">
-                    <i class="fal fa-inbox-in"></i>
-                    Received
-                </div>
+                <a href="/mailbox.php?type=received">
+                    <div class="mailbox-menu-item <?php if(isset($_GET['type']) && $_GET['type'] == 'received') { echo 'mailbox-left-selected'; } else { echo ''; }?>">
+                        <i class="fal fa-inbox-in"></i>
+                        Received
+                    </div>
+                </a>
 
-                <div class="mailbox-menu-item">
-                    <i class="fal fa-paper-plane"></i>
-                    Sent
-                </div>
+                <a href="/mailbox.php?type=sent">
+                    <div class="mailbox-menu-item <?php if(isset($_GET['type']) && $_GET['type'] == 'sent') { echo 'mailbox-left-selected'; } else { echo ''; }?>">
+                        <i class="fal fa-paper-plane"></i>
+                        Sent
+                    </div>
+                </a>
 
             </div>
             <div class="mailbox-right">
-                <div class="mailbox-right-bottom mailbox-right-new">
-                    <form action="">
-                        <input type="text" name="send-to" class="send-to" placeholder="send to:">
-                        <textarea name="mailbox-message" id="mailbox-message" placeholder="Message"></textarea>
-                        <input class="priv-message-send" type="submit" value="Send message">
-                    </form>
-                </div>
-            
-                <div class="mailbox-right mailbox-right-received">
-                    
-                </div>
+                <?php if(!isset($_GET['messageid']) && (isset($_GET['type']) && $_GET['type'] == 'new') || !isset($_GET['type'])) { ?>
 
-                <div class="mailbox-right mailbox-right-sent">
-                    
-                </div>
+                    <div class="mailbox-right-bottom mailbox-right-new">
+                        <form action="actions/message.php" method="POST">
+                            <input type="text" name="send-to" class="send-to" placeholder="send to:">
+                            <textarea name="mailbox-message" id="mailbox-message" placeholder="Message"></textarea>
+                            <input class="priv-message-send" type="submit" value="Send message">
+                        </form>
+                    </div>
 
+                <?php } elseif(!isset($_GET['messageid']) && isset($_GET['type']) && $_GET['type'] == 'received') {?>
+                
+                    <div class="mailbox-right mailbox-right-received">
+                        <?php 
+                            $client_id = $_SESSION['client_id'];
+                            $sql = "SELECT * FROM `private_message` WHERE `user_id_receiver` = '$client_id'";
+                            $response = $conn->query($sql);
+
+                            if ($response->num_rows > 0) {
+                                while($row = $response->fetch_assoc()) { ?>
+                                    <a href="/mailbox.php?type=received&messageid=<?php echo $row['id']; ?>">
+                                        <div class="single-message-block">
+
+                                            <?php 
+                                                $senderId = $row['user_id_sender'];
+                                                $receiverName = '';
+                                                $sql2 = "SELECT `name` FROM `user` WHERE `id` = '$senderId'";
+                                                $response2 = $conn->query($sql2);
+                                                if($response2->num_rows > 0) {
+                                                    $receiverName = $response2->fetch_assoc()['name'];
+                                                }   
+                                            ?>
+                                        
+                                            <div class="single-message-block-left">
+                                                Received from: <?php echo $receiverName; ?>
+                                            </div>
+                                            <div class="single-message-block-right">
+                                                <?php 
+                                                    if(strlen($row['message']) > 30) {
+                                                        echo substr($row['message'], 0, 30) . ' ...';
+                                                    } else {
+                                                        echo $row['message']; 
+                                                    }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </a>
+                                <?php }
+                            }
+                        ?>
+                    </div>
+
+                <?php } elseif(!isset($_GET['messageid']) && isset($_GET['type']) && $_GET['type'] == 'sent') { ?>
+
+                    <div class="mailbox-right mailbox-right-sent">
+                    <?php 
+                            $client_id = $_SESSION['client_id'];
+                            $sql = "SELECT * FROM `private_message` WHERE `user_id_sender` = '$client_id'";
+                            $response = $conn->query($sql);
+
+                            if ($response->num_rows > 0) {
+                                while($row = $response->fetch_assoc()) { ?>
+                                    <a href="/mailbox.php?type=sent&messageid=<?php echo $row['id']; ?>">
+                                        <div class="single-message-block">
+
+                                            <?php 
+                                                $senderId = $row['user_id_sender'];
+                                                $senderName = '';
+                                                $sql2 = "SELECT `name` FROM `user` WHERE `id` = '$senderId'";
+                                                $response2 = $conn->query($sql2);
+                                                if($response2->num_rows > 0) {
+                                                    $senderName = $response2->fetch_assoc()['name'];
+                                                }   
+                                            ?>
+                                        
+                                            <div class="single-message-block-left">
+                                                Sent by: <?php echo $senderName; ?>
+                                            </div>
+                                            <div class="single-message-block-right">
+                                                <?php 
+                                                    if(strlen($row['message']) > 30) {
+                                                        echo substr($row['message'], 0, 30) . ' ...';
+                                                    } else {
+                                                        echo $row['message']; 
+                                                    }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </a>
+                                <?php }
+                            }
+                        ?>
+                    </div>
+
+                <?php } elseif(isset($_GET['messageid']) && $_GET['messageid'] !== '') { ?>
+                    <?php
+                        $messageId = $_GET['messageid'];
+                        $sql = "SELECT * FROM `private_message` WHERE `id` = '$messageId'";
+                        $response = $conn->query($sql);  
+                        
+                        $res = $response->fetch_assoc();
+
+                        ?>
+
+                            <div class="mailbox-right mailbox-right-single">
+
+                                <?php 
+                                    $senderId = $res['user_id_sender'];
+                                    $receiverName = '';
+                                    // Pobieramy nazwę OD KOGO na podstawie pobranego ID z wyższego zapytania.
+                                    $sql2 = "SELECT `name` FROM `user` WHERE `id` = '$senderId'";
+                                    $response2 = $conn->query($sql2);
+                                    if($response2->num_rows > 0) {
+                                        $receiverName = $response2->fetch_assoc()['name'];
+                                    }   
+                                ?>
+
+                                Sent by: <?php echo $receiverName; ?>
+                                <p>
+                                    <?php echo $res['message']; ?>
+                                </p>
+                            </div>
+
+                        <?php
+                    ?>
+                <?php } ?>
             </div>
 
         </div>
